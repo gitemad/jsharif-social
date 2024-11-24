@@ -136,3 +136,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 #     'django.contrib.auth.hashers.ScryptPasswordHasher',
 # ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
