@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile, Contact
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
+from actions.utils import create_action
 
 # Create your views here.
 def user_login(request):
@@ -49,7 +50,7 @@ def register(request):
             new_user.save()
 
             Profile.objects.create(user=new_user)
-
+            create_action(new_user, 'has created an account!')
             return render(
                 request,
                 'account/register_done.html',
@@ -126,6 +127,7 @@ def user_follow(request):
                     user_from=request.user,
                     user_to=user
                 )
+                create_action(request.user, 'is following', user)
             else:
                 Contact.objects.filter(
                     user_from=request.user,
